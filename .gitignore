@@ -1,0 +1,15 @@
+UnityGame/Library/
+UnityGame/Temp/
+UnityGame/Logs/
+UnityGame/Obj/
+UnityGame/UserSettings/
+UnityGame/Builds/
+UnityGame/Assets/Temp/
+UnityGame/Assets/Temp.meta
+UnityGame/Assets/2DGamekit/
+UnityGame/Assets/2DGamekit.meta
+UnityGame/Assets/David/Scenes/
+UnityGame/Assets/David/Scenes.meta
+UnityGame/Assets/David/NativePhrases/
+UnityGame/Assets/David/NativePhrases.meta
+outputs/
