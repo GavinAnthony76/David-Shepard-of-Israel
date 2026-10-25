@@ -173,6 +173,7 @@ public static class DavidNativeCampaignBuilder
             if(text.text.StartsWith("This is a free project"))
             {
                 text.text="DAVID\n<size=55%>SHEPHERD OF ISRAEL</size>";
+                text.raycastTarget=false;
                 text.fontSize=88;text.enableAutoSizing=true;text.fontSizeMin=40;text.fontSizeMax=88;
                 text.alignment=TextAlignmentOptions.Center;
                 var link=text.GetComponentInParent<UnityEngine.UI.Button>();if(link!=null)link.interactable=false;

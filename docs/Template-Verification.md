@@ -5,6 +5,7 @@ October 25, 2026. Unity 6000.5.2f1, 2D Game Kit 5.0.
 Passed in Unity Play mode:
 
 - Native Start menu button opens David's first chapter.
+- After fixing the title's click-blocking rectangle, the menu hit test resolves to Begin and actual Input System mouse down/up opens the first chapter. The earlier direct-button callback check had missed this defect.
 - Keyboard input moves the player right and left and makes the player jump.
 - All seven saved chapter scenes load, and their exits reference campaign scenes.
 - Existing dialogue canvas displays rewritten David text.
