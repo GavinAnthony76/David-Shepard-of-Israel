@@ -12,14 +12,22 @@ public static class VerifyNativeCampaign
 {
  public static async Task<object> Run()
  {
+  Application.runInBackground=true;
   var results=new System.Collections.Generic.List<object>();
   var oldBackground=InputSystem.settings.backgroundBehavior;
   var oldEditor=InputSystem.settings.editorInputBehaviorInPlayMode;
+  var physical=InputSystem.devices.Where(d=>d.enabled&&(d is Keyboard||d is Mouse)).ToArray();
+  foreach(var device in physical)InputSystem.DisableDevice(device);
   InputSystem.settings.backgroundBehavior=InputSettings.BackgroundBehavior.IgnoreFocus;
   InputSystem.settings.editorInputBehaviorInPlayMode=InputSettings.EditorInputBehaviorInPlayMode.AllDeviceInputAlwaysGoesToGameView;
   var keyboard=InputSystem.AddDevice<Keyboard>();InputSystem.EnableDevice(keyboard);
   try
   {
+   if(SceneManager.GetActiveScene().name!="Start"&&SceneManager.GetActiveScene().name!=DavidStory.Scenes[0])
+   {
+    foreach(var c in Object.FindObjectsByType<SceneController>())Object.DestroyImmediate(c.gameObject);
+    PersistentDataManager.ClearPersisters();await SceneManager.LoadSceneAsync(DavidStory.Scenes[0]);await Task.Delay(2800);
+   }
    if(SceneManager.GetActiveScene().name=="Start")
    {
     var button=Object.FindObjectsByType<UnityEngine.UI.Button>().First(b=>b.name=="StartButton");
@@ -48,6 +56,7 @@ public static class VerifyNativeCampaign
     hero=PlayerCharacter.PlayerInstance;
     var story=hero.GetComponent<DavidNativeChapter>();
     if(story==null||story.chapter!=i)throw new Exception("Missing native story chapter "+i);
+    if(Resources.FindObjectsOfTypeAll<Material>().Any(m=>m.shader!=null&&m.shader.name.StartsWith("Universal Render Pipeline/2D/")&&m.renderQueue>=2500&&m.HasProperty("_ZWrite")&&m.GetFloat("_ZWrite")!=0))throw new Exception("Transparent material depth regression in chapter "+i);
     if(Object.FindObjectsByType<MonoBehaviour>(FindObjectsInactive.Include).Any(c=>c!=null&&new[]{"DavidChapter","DavidPickup","DavidMenu","DavidCostume","DavidWildlife"}.Contains(c.GetType().Name)))throw new Exception("Retired addition in scene "+i);
     foreach(var t in Object.FindObjectsByType<TransitionPoint>(FindObjectsInactive.Include))
      if(t.transitionType!=TransitionPoint.TransitionType.SameScene&&t.newSceneName!="Start"&&!DavidStory.Scenes.Contains(t.newSceneName))throw new Exception("Unmapped native exit "+t.newSceneName);
@@ -68,6 +77,6 @@ public static class VerifyNativeCampaign
    }
    return results;
   }
-  finally{InputSystem.RemoveDevice(keyboard);InputSystem.settings.backgroundBehavior=oldBackground;InputSystem.settings.editorInputBehaviorInPlayMode=oldEditor;}
+  finally{InputSystem.RemoveDevice(keyboard);InputSystem.settings.backgroundBehavior=oldBackground;InputSystem.settings.editorInputBehaviorInPlayMode=oldEditor;foreach(var device in physical)InputSystem.EnableDevice(device);}
  }
 }

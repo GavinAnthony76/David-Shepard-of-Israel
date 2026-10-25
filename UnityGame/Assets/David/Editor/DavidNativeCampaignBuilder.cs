@@ -111,7 +111,7 @@ public static class DavidNativeCampaignBuilder
         scenes.Add(new EditorBuildSettingsScene("Assets/2DGamekit/Scenes/UI/UIMenus.unity",true));
         scenes.Add(new EditorBuildSettingsScene("Assets/2DGamekit/Scenes/UI/Loading.unity",true));
         EditorBuildSettings.scenes=scenes.ToArray();
-        PlayerSettings.productName="David: Shepherd of Israel";PlayerSettings.bundleVersion="0.4.0";
+        PlayerSettings.productName="David: Shepherd of Israel";PlayerSettings.bundleVersion="0.4.1";
         AssetDatabase.SaveAssets();
         return report;
     }

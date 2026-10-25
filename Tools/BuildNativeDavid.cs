@@ -8,7 +8,7 @@ public static class BuildNativeDavid
  public static object Run()
  {
   if(EditorApplication.isPlaying)throw new Exception("Stop play mode first.");
-  string folder=Path.GetFullPath("../outputs/David-Template-Edition");
+  string folder=Path.GetFullPath("../outputs/David-Template-Edition-v"+PlayerSettings.bundleVersion);
   Directory.CreateDirectory(folder);
   var report=BuildPipeline.BuildPlayer(new BuildPlayerOptions{
    scenes=EditorBuildSettings.scenes.Where(s=>s.enabled).Select(s=>s.path).ToArray(),

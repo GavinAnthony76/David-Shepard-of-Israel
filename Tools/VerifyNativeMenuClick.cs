@@ -12,6 +12,7 @@ public static class VerifyNativeMenuClick
 {
  public static async Task<string> Run()
  {
+  Application.runInBackground=true;await Task.Delay(100);Canvas.ForceUpdateCanvases();
   if(SceneManager.GetActiveScene().name!="Start")throw new Exception("Open native title first.");
   var button=Object.FindObjectsByType<Button>().First(b=>b.name=="StartButton");
   if(!button.IsInteractable())throw new Exception("Begin is disabled.");
@@ -22,6 +23,8 @@ public static class VerifyNativeMenuClick
   if(hits.Count==0||hits[0].gameObject.GetComponentInParent<Button>()!=button)
    throw new Exception("Begin hit area blocked by "+(hits.Count==0?"no hit":hits[0].gameObject.name));
   var oldBackground=InputSystem.settings.backgroundBehavior;var oldEditor=InputSystem.settings.editorInputBehaviorInPlayMode;
+  var physical=InputSystem.devices.Where(d=>d.enabled&&(d is Keyboard||d is Mouse)).ToArray();
+  foreach(var device in physical)InputSystem.DisableDevice(device);
   InputSystem.settings.backgroundBehavior=InputSettings.BackgroundBehavior.IgnoreFocus;
   InputSystem.settings.editorInputBehaviorInPlayMode=InputSettings.EditorInputBehaviorInPlayMode.AllDeviceInputAlwaysGoesToGameView;
   var mouse=InputSystem.AddDevice<Mouse>();InputSystem.EnableDevice(mouse);
@@ -33,6 +36,6 @@ public static class VerifyNativeMenuClick
    for(int i=0;i<80;i++){await Task.Delay(100);if(SceneManager.GetActiveScene().name=="David_01_Pastures")return "PASS: Begin is interactable, its center raycast resolves to the native button, and mouse down/up through the Input System opens David's pastures.";}
    throw new Exception("Mouse click did not open pastures.");
   }
-  finally{InputSystem.RemoveDevice(mouse);InputSystem.settings.backgroundBehavior=oldBackground;InputSystem.settings.editorInputBehaviorInPlayMode=oldEditor;}
+  finally{InputSystem.RemoveDevice(mouse);InputSystem.settings.backgroundBehavior=oldBackground;InputSystem.settings.editorInputBehaviorInPlayMode=oldEditor;foreach(var device in physical)InputSystem.EnableDevice(device);}
  }
 }
