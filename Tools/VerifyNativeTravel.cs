@@ -23,6 +23,7 @@ public static class VerifyNativeTravel
  }
  public static async Task<string> Run()
  {
+  Application.runInBackground=true;
   foreach(var c in Object.FindObjectsByType<SceneController>())Object.DestroyImmediate(c.gameObject);
   PersistentDataManager.ClearPersisters();
   await SceneManager.LoadSceneAsync(DavidStory.Scenes[1]);await Task.Delay(2800);

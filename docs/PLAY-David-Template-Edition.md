@@ -4,7 +4,7 @@ This is the template-focused exploration prototype. The original kit’s animate
 
 ## Play
 
-Open `David-Template-Edition/David-Shepherd-of-Israel.exe` when the Windows build is present beside this guide. Keep the executable with its adjacent Data folder and Unity files.
+Open `David-Template-Edition-v0.4.1/David-Shepherd-of-Israel.exe` when the Windows build is present beside this guide. Keep the executable with its adjacent Data folder and Unity files.
 
 In Unity, the active project is `GameKitFoundation`. Open `Assets/David/Scenes/Start.unity` and press Play. Choose **BEGIN**.
 

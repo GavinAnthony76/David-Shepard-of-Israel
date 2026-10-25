@@ -26,6 +26,7 @@ Verified in Unity Play mode: native Start button, left/right/jump input, all sev
 - [Play and route guide](docs/PLAY-David-Template-Edition.md)
 - [Owned assets and free Store review](docs/Unity-Asset-Review.md)
 - [Verification and limits](docs/Template-Verification.md)
+- [0.4.1 rendering and UI fixes](docs/Bugfix-0.4.1.md)
 
 `Tools/` contains Unity Pipeline editor scripts for verification and Windows building. They require a running Unity Editor; this Unity C# project is not a Node application that can run directly in Replit. Earlier web prototypes remain in their existing branches.
 

@@ -44,7 +44,9 @@ namespace DavidGame
             {
                 string message = opening;
                 if (chapter == 1 && inventory != null && inventory.HasItem("Key3"))
-                    message = "David: Samuel called me from the fields and anointed me. For now I serve my father. With all three trail keys, I can take his provisions toward my brothers.";
+                    message = Count == trackedKeys.Length
+                        ? "David: Samuel called me from the fields and anointed me. For now I serve my father. With all three trail keys, I can take his provisions toward my brothers."
+                        : "David: Samuel called me from the fields and anointed me. For now I serve my father. I must find the remaining trail keys before taking provisions to my brothers.";
                 Say(message, 9);
             }
         }
